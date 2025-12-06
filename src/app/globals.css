@@ -5,17 +5,16 @@
 :root {
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 0, 0, 0;
+  --background-end-rgb: 10, 10, 20;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb)),
+      rgb(var(--background-start-rgb))
+    );
 }
 
 @layer utilities {
@@ -41,9 +40,189 @@ body {
       rgba(0, 255, 0, 0.02), 
       rgba(0, 0, 255, 0.06)
     );
-    z-index: 2;
+    z-index: 50;
     background-size: 100% 2px, 3px 100%;
     pointer-events: none;
   }
+
+  .pixel-art {
+    image-rendering: pixelated;
+  }
 }
 
+/* Starfield Animation */
+@keyframes scroll-stars {
+  from { transform: translateY(0); }
+  to { transform: translateY(100vh); }
+}
+
+.stars-sm {
+  width: 1px;
+  height: 1px;
+  background: transparent;
+  box-shadow: 10vw 10vh #FFF, 20vw 80vh #FFF, 80vw 10vh #FFF, 90vw 90vh #FFF, 50vw 50vh #FFF, 30vw 30vh #FFF, 70vw 70vh #FFF, 10vw 90vh #FFF, 40vw 20vh #FFF, 60vw 80vh #FFF;
+  animation: scroll-stars 20s linear infinite;
+}
+
+.stars-md {
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  box-shadow: 15vw 15vh #FFF, 25vw 85vh #FFF, 75vw 15vh #FFF, 85vw 85vh #FFF, 45vw 45vh #FFF;
+  animation: scroll-stars 15s linear infinite;
+}
+
+.stars-lg {
+  width: 3px;
+  height: 3px;
+  background: transparent;
+  box-shadow: 5vw 50vh #FFF, 95vw 40vh #FFF, 50vw 10vh #FFF;
+  animation: scroll-stars 10s linear infinite;
+}
+
+@keyframes float-nebula {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 0.3; }
+  50% { transform: translate(20px, 10px) rotate(5deg); opacity: 0.5; }
+  100% { transform: translate(0, 0) rotate(0deg); opacity: 0.3; }
+}
+
+.animate-float-nebula {
+  animation: float-nebula 20s ease-in-out infinite;
+}
+
+/* Star Wars Crawl Effect */
+.perspective-1000 {
+  perspective: 1000px;
+  perspective-origin: center center;
+  width: 100%;
+  height: 100%;
+}
+
+.crawl-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.crawl-text {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) rotateX(25deg);
+  transform-origin: center center;
+  width: 90%;
+  max-width: 1000px; /* Increased max-width */
+  text-align: justify;
+  font-family: var(--font-mono);
+  color: #FFE81F;
+  font-size: clamp(1.8rem, 5vw, 3rem); /* Increased font size */
+  line-height: 1.5;
+  animation: crawl 60s linear; /* Slower animation */
+  text-shadow: 0 0 10px rgba(255, 232, 31, 0.8);
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .crawl-text {
+    width: 95%;
+    font-size: clamp(1.5rem, 6vw, 2rem); /* Increased mobile font size */
+    line-height: 1.4;
+    transform: translateX(-50%) rotateX(20deg);
+  }
+  
+  .crawl-text p {
+    margin-bottom: 2rem;
+  }
+}
+
+.crawl-title {
+  text-align: center;
+  font-family: var(--font-pixel);
+  font-size: clamp(3rem, 10vw, 6rem); /* Increased title size */
+  margin-bottom: 1rem;
+  color: #FFE81F;
+  text-shadow: 0 0 20px rgba(255, 232, 31, 1);
+  line-height: 1.2;
+}
+
+.crawl-subtitle {
+  text-align: center;
+  font-family: var(--font-pixel);
+  font-size: clamp(1.5rem, 5vw, 3rem); /* Increased subtitle size */
+  margin-bottom: 3rem;
+  color: #FFE81F;
+  text-shadow: 0 0 15px rgba(255, 232, 31, 0.8);
+  line-height: 1.3;
+}
+
+@keyframes crawl {
+  0% {
+    top: 100%;
+    opacity: 1;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: -250%;
+    opacity: 0;
+  }
+}
+
+.transition-opacity {
+  transition: opacity 2s ease-in-out;
+}
+
+.duration-2000 {
+  transition-duration: 2000ms;
+}
+
+/* Blink Animation */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0.3; }
+}
+
+.blink {
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+/* Fade In Animation */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
+
+/* Bubble Speech Animation */
+.bubble-speech {
+  position: relative;
+}
+
+.bubble-speech::before {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 20px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid white;
+}

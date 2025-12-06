@@ -1,27 +1,42 @@
 "use client";
 
-import React from 'react';
-import { GameProvider, useGame } from '../context/GameContext';
+import React, { useState, useEffect } from 'react';
+import { useShop } from '../context/ShopContext';
 import TitleScreen from '../components/TitleScreen';
-import BattleScreen from '../components/BattleScreen';
-import GameOverScreen from '../components/GameOverScreen';
+import LiveProductScreen from '../components/LiveProductScreen';
+import SoldOutScreen from '../components/SoldOutScreen';
+import Background from '../components/Background';
+import IntroScreen from '../components/IntroScreen';
 
-const GameContainer = () => {
-  const { phase } = useGame();
+const ShopContainer = () => {
+  const { dropPhase } = useShop();
 
   return (
     <>
-      {phase === 'PRE_DROP' && <TitleScreen />}
-      {phase === 'DROP_LIVE' && <BattleScreen />}
-      {phase === 'POST_DROP' && <GameOverScreen />}
+      {dropPhase === 'PRE_DROP' && <TitleScreen />}
+      {dropPhase === 'DROP_LIVE' && <LiveProductScreen />}
+      {dropPhase === 'POST_DROP' && <SoldOutScreen />}
     </>
   );
 };
 
 export default function Home() {
+  const { dropPhase, hasSeenIntro, markIntroSeen } = useShop();
+
   return (
-    <GameProvider>
-       <GameContainer />
-    </GameProvider>
+    <>
+      {!hasSeenIntro ? (
+        <IntroScreen onComplete={markIntroSeen} />
+      ) : (
+        <>
+          <div className="fixed inset-0 overflow-hidden">
+            <Background />
+          </div>
+          <div className="relative z-10 h-screen flex flex-col items-center justify-center">
+            <ShopContainer />
+          </div>
+        </>
+      )}
+    </>
   );
 }

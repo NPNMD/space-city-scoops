@@ -21,6 +21,16 @@ module.exports = {
         'snes-purple': '#4a0e4e',
         'snes-blue': '#16213e',
         'snes-gold': '#ffd700',
+      },
+      animation: {
+        'shimmer': 'shimmer 2s ease-in-out infinite',
+        'bounce-slow': 'bounce 3s ease-in-out infinite',
+      },
+      keyframes: {
+        shimmer: {
+          '0%, 100%': { transform: 'translateX(-100%)' },
+          '50%': { transform: 'translateX(100%)' },
+        },
       }
     },
   },
