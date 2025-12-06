@@ -1,0 +1,36 @@
+"use client";  
+  
+import React, { useState } from 'react';  
+import Link from 'next/link';  
+import { usePathname } from 'next/navigation';  
+import { useShop } from '../context/ShopContext';  
+import Image from 'next/image';  
+  
+const Navigation = () => {  
+  const pathname = usePathname();  
+  const { user, login, getCartItemCount } = useShop();  
+  const [showMobileMenu, setShowMobileMenu] = useState(false);  
+  const cartCount = getCartItemCount();  
+  
+  const navLinks = [  
+    { href: '/', label: 'HOME' },  
+    { href: '/shop', label: 'SHOP' },  
+    { href: '/archive', label: 'ARCHIVE' },  
+    { href: '/about', label: 'ABOUT' },  
+  ];  
+  
+  const isActive = (href: string) => {  
+    if (!pathname) return false;  
+  
+    // Exact match for any page (including home)  
+    if (pathname === href) {  
+      return true;  
+    }  
+  
+    // For non-home pages, also match sub-routes  
+    if (href !== '/' && pathname.startsWith(href + '/')) {  
+      return true;  
+    }  
+  
+    return false;  
+  }; 

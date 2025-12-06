@@ -20,10 +20,16 @@ const Navigation = () => {
   ];
 
   const isActive = (href: string) => {
+    if (!pathname) return false;
+
+    // Special case for Home: strict match only
     if (href === '/') {
       return pathname === '/';
     }
-    return pathname?.startsWith(href);
+
+    // Other pages: match exact or sub-paths
+    // e.g. /shop matches /shop and /shop/item
+    return pathname === href || pathname.startsWith(`${href}/`);
   };
 
   return (
@@ -100,9 +106,11 @@ const Navigation = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setShowMobileMenu(!showMobileMenu)}
-              className="md:hidden px-3 py-2 font-pixel text-xs border-2 border-gray-600"
+              className="md:hidden px-3 py-2 font-pixel text-xs border-2 border-gray-600 hover:border-gray-400 transition-colors"
+              aria-expanded={showMobileMenu}
+              aria-label="Toggle navigation menu"
             >
-              MENU
+              {showMobileMenu ? 'CLOSE' : 'MENU'}
             </button>
           </div>
         </div>

@@ -3,15 +3,26 @@ import Client from 'shopify-buy';
 const domain = process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN;
 const storefrontAccessToken = process.env.NEXT_PUBLIC_SHOPIFY_ACCESS_TOKEN;
 
-if (!domain || !storefrontAccessToken) {
-  console.warn('⚠️ Shopify credentials missing in .env.local');
+// Log configuration status (but not the actual values for security)
+if (typeof window !== 'undefined') {
+  if (!domain || !storefrontAccessToken) {
+    console.info('ℹ️ Shopify not configured - running in local-only mode');
+  } else {
+    console.info('ℹ️ Shopify configured for:', domain);
+  }
 }
 
+// Create client with fallback values (will fail gracefully if credentials are invalid)
 export const shopifyClient = Client.buildClient({
   domain: domain || 'mock-shop.myshopify.com',
   storefrontAccessToken: storefrontAccessToken || 'mock-token',
-  apiVersion: '2024-01' // Use latest stable version
+  apiVersion: '2024-01' // Use stable version
 });
+
+// Helper to check if Shopify is properly configured
+export const isShopifyConfigured = (): boolean => {
+  return Boolean(domain && storefrontAccessToken && domain !== 'mock-shop.myshopify.com');
+};
 
 // Helper to fetch products
 export const fetchAllProducts = async () => {
