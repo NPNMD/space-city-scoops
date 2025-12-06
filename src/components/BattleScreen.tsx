@@ -87,10 +87,10 @@ const BattleScreen = () => {
         ) : (
             <div className="bg-blue-800 border-4 border-white p-2 rounded-lg w-full max-w-md shadow-2xl">
                 <div className="bg-blue-900 border-2 border-blue-700 p-4 space-y-2 font-mono text-xl text-white">
-                    <button onClick={() => handleCheckout('APPLE')} className="block w-full text-left hover:bg-yellow-500 hover:text-black px-2 py-1">> APPLE PAY (CRITICAL!)</button>
-                    <button onClick={() => handleCheckout('GOOGLE')} className="block w-full text-left hover:bg-yellow-500 hover:text-black px-2 py-1">> GOOGLE PAY (CRITICAL!)</button>
-                    <button onClick={() => handleCheckout('CARD')} className="block w-full text-left hover:bg-yellow-500 hover:text-black px-2 py-1">> CARD INPUT</button>
-                    <button onClick={() => setShowMenu(false)} className="block w-full text-left hover:bg-red-500 hover:text-white px-2 py-1">> RUN AWAY</button>
+                    <button onClick={() => handleCheckout('APPLE')} className="block w-full text-left hover:bg-yellow-500 hover:text-black px-2 py-1">&gt; APPLE PAY (CRITICAL!)</button>
+                    <button onClick={() => handleCheckout('GOOGLE')} className="block w-full text-left hover:bg-yellow-500 hover:text-black px-2 py-1">&gt; GOOGLE PAY (CRITICAL!)</button>
+                    <button onClick={() => handleCheckout('CARD')} className="block w-full text-left hover:bg-yellow-500 hover:text-black px-2 py-1">&gt; CARD INPUT</button>
+                    <button onClick={() => setShowMenu(false)} className="block w-full text-left hover:bg-red-500 hover:text-white px-2 py-1">&gt; RUN AWAY</button>
                 </div>
             </div>
         )}
